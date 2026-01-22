@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 import Botao from '../Botao'
 import CampoTexto from '../CampoTexto'
 import ListaSuspensa from '../ListaSuspensa'
@@ -13,8 +14,11 @@ const Formulario = (props) => {
 
     const aoSalvar = (evento) => {
         evento.preventDefault()
+        const id = uuidv4()
         props.aoColaboradorCadastrado({
-            nome, 
+          //id:uuidv4(), 
+            id,
+            nome:nome, 
             cargo, 
             imagem, 
             time
