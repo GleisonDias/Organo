@@ -58,20 +58,29 @@ function App() {
   function mudarCorDoTime(cor, id) {
     setTimes(times.map(time => {
       if(time.id === id) {
-        time.cor = cor;
+       return {...time, cor:cor};
       }
       return time;
     }));
   }
 
+  function cadastrarTime(novoTime) {
+    setTimes([ ...times, { ...novoTime, id:uuidv4() }])
+  }
+
   return (
     <div className="App">
       <Banner />
-      <Formulario times={times.map(time => time.nome)} aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}/>
+      <Formulario 
+      cadastrarTime={cadastrarTime}
+        times={times.map(time => time.nome)} 
+        aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}
+      />
       {times.map(time => 
         <Time 
           mudarCor={mudarCorDoTime}
           key={time.id} 
+          id={time.id}
           nome={time.nome} 
           cor={time.cor} 
           colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
